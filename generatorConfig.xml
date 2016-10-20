@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+
+	<properties resource="jdbc.properties"/>
+	
+	<classPathEntry location="E:\localRepository\com\oracle\ojdbc14\10.2.0.4.0\ojdbc14-10.2.0.4.0.jar"/>
+
+  <context id="initWorkout" >
+    <jdbcConnection driverClass="${jdbcinter.driver}" connectionURL="${jdbcinter.url}" userId="${jdbcinter.username}" password="${jdbcinter.password}" />
+    <!-- 生成实体类地址 --> 
+    <javaModelGenerator targetPackage="cn.koolyun.model" targetProject="CmTransRouter" />
+    <!-- 生成mapper文件 -->
+    <sqlMapGenerator targetPackage="cn.koolyun.mapper" targetProject="CmTransRouter" />
+    <!-- dao -->
+    <javaClientGenerator targetPackage="cn.koolyun.dao.inter" targetProject="CmTransRouter" type="XMLMAPPER" />
+    <table schema="${jdbcinter.username}" tableName="GGPT_TXN_INFO" domainObjectName="GgptTxnInfo">
+<!--       <columnOverride column="???" property="???" /> -->
+    </table>
+  </context>
+</generatorConfiguration>
