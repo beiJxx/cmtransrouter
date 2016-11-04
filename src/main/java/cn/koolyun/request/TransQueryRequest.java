@@ -17,6 +17,8 @@ package cn.koolyun.request;
  */
 public class TransQueryRequest {
 
+	private String transChannel;
+	
 	//传一个订单号，表示查一个订单的交易；不传，表示所有符合条件的订单
 	private String customerOrderId;
 	//客户号
@@ -30,11 +32,38 @@ public class TransQueryRequest {
 	//查询结束日期  格式20160829
 	private String transEndDate;
 	
-	
 	//每页显示条数
-	private String recordsPerPage;
+	private Long recordsPerPage;
 	//页号（第一次传1）
-	private String pageNo;
+	private Long pageNo;
+	
+	private String sign;
+	
+	
+	/**
+	 * @return the transChannel
+	 */
+	public String getTransChannel() {
+		return transChannel;
+	}
+	/**
+	 * @param transChannel the transChannel to set
+	 */
+	public void setTransChannel(String transChannel) {
+		this.transChannel = transChannel;
+	}
+	/**
+	 * @return the sign
+	 */
+	public String getSign() {
+		return sign;
+	}
+	/**
+	 * @param sign the sign to set
+	 */
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
 	/**
 	 * @return the customerOrderId
 	 */
@@ -110,28 +139,26 @@ public class TransQueryRequest {
 	/**
 	 * @return the recordsPerPage
 	 */
-	public String getRecordsPerPage() {
+	public Long getRecordsPerPage() {
 		return recordsPerPage;
 	}
 	/**
 	 * @param recordsPerPage the recordsPerPage to set
 	 */
-	public void setRecordsPerPage(String recordsPerPage) {
+	public void setRecordsPerPage(Long recordsPerPage) {
 		this.recordsPerPage = recordsPerPage;
 	}
 	/**
 	 * @return the pageNo
 	 */
-	public String getPageNo() {
+	public Long getPageNo() {
 		return pageNo;
 	}
 	/**
 	 * @param pageNo the pageNo to set
 	 */
-	public void setPageNo(String pageNo) {
+	public void setPageNo(Long pageNo) {
 		this.pageNo = pageNo;
 	}
-	
-	
-	
+
 }

@@ -11,6 +11,7 @@ import java.util.List;
 
 import cn.koolyun.model.GgptTxnInfo;
 import cn.koolyun.request.TransQueryRequest;
+import cn.koolyun.response.TransQueryResponse;
 
 /**
  * <一句话功能简述>
@@ -23,5 +24,7 @@ import cn.koolyun.request.TransQueryRequest;
 public interface GgptTxnInfoService {
 
 	public List<GgptTxnInfo> selectByObj(TransQueryRequest ggptTxnInfo);
+	
+	public TransQueryResponse findByParams(TransQueryRequest queryReq);
 	
 }

@@ -3,14 +3,12 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
     http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-4.1.xsd
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
       http://www.springframework.org/schema/aop
-          http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:jdbc.properties"/>
-    </bean>
+          http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
     <bean id="dataSourceInter" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbcinter.driver}"/>
         <property name="url" value="${jdbcinter.url}"/>
@@ -29,7 +27,7 @@
         <property name="numTestsPerEvictionRun" value="${jdbc.numTestsPerEvictionRun}"/>
         <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/>
     </bean>
-    <bean id="dataSourceChps" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <!-- <bean id="dataSourceChps" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbcchps.driver}"/>
         <property name="url" value="${jdbcchps.url}"/>
         <property name="username" value="${jdbcchps.username}"/>
@@ -46,8 +44,8 @@
         <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"/>
         <property name="numTestsPerEvictionRun" value="${jdbc.numTestsPerEvictionRun}"/>
         <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/>
-    </bean>
-    <bean id="multipleDataSource" class="cn.koolyun.util.MultipleDataSource">
+    </bean> -->
+     <!-- <bean id="multipleDataSource" class="cn.koolyun.util.MultipleDataSource">
         <property name="defaultTargetDataSource" ref="dataSourceInter"/>
         <property name="targetDataSources">
             <map>
@@ -55,9 +53,9 @@
                 <entry key="dataSourceChps" value-ref="dataSourceChps"/>
             </map>
         </property>
-    </bean>
+    </bean> -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="multipleDataSource"/>
+        <property name="dataSource" ref="dataSourceInter"/>
         <property name="mapperLocations">
             <list>
                 <value>classpath*:cn/koolyun/mapper/*.xml</value>
@@ -65,15 +63,32 @@
         </property>
     </bean>
     
-   	<bean id="baseMapper" class="org.mybatis.spring.mapper.MapperFactoryBean" abstract="true">
+    
+   	<!-- <bean id="baseMapper" class="org.mybatis.spring.mapper.MapperFactoryBean" abstract="true">
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
-    </bean>
+    </bean> -->
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="cn.koolyun.dao.*"/>
     </bean>
+    
+	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceInter" />
+	</bean>
+    
 
     <!-- 自动扫描，多个包以 逗号分隔 -->
     <context:component-scan base-package="cn.koolyun.util,cn.koolyun.service.impl"/>
     <aop:aspectj-autoproxy/>
+    
+    <beans profile="dev">
+		<context:property-placeholder location="classpath:jdbc.properties"/>
+	</beans>
+
+	<beans profile="prod">
+		<context:property-placeholder location="classpath:jdbc_prod.properties"/>
+	</beans>
+	
 </beans>

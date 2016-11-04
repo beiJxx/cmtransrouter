@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+
+	<properties resource="jdbc.properties"/>
+	
+	<classPathEntry location="E:\localRepository\com\oracle\ojdbc14\10.2.0.4.0\ojdbc14-10.2.0.4.0.jar"/>
+
+  <context id="initWorkout" >
+    <jdbcConnection driverClass="${jdbcinter.driver}" connectionURL="${jdbcinter.url}" userId="${jdbcinter.username}" password="${jdbcinter.password}" />
+    <!-- 生成实体类地址 --> 
+    <javaModelGenerator targetPackage="cn.koolyun.model" targetProject="cmtransrouter" />
+    <!-- 生成mapper文件 -->
+    <sqlMapGenerator targetPackage="cn.koolyun.mapper" targetProject="cmtransrouter" />
+    <!-- dao -->
+    <javaClientGenerator targetPackage="cn.koolyun.dao.inter" targetProject="cmtransrouter" type="XMLMAPPER" />
+    <!-- table标签中加入 schema="" 则生成的mapper.xml文件中会带有表空间，如果放到生产上，则表空间会有变化，所以这个参数最好别加上去-->
+    <table schema="${jdbcinter.username}" tableName="T_MER_INFO" domainObjectName="TmerInfo"></table>
+  </context>
+</generatorConfiguration>

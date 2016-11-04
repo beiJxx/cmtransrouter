@@ -19,33 +19,34 @@ import cn.koolyun.response.entity.TransQueryEntity;
  * @see  [相关类/方法]
  * @since V1.00
  */
-public class TransQueryResponse {
+public class TransQueryResponse extends BaseResponse{
 
-	private String totalRecords;
-	private String totalPage;
+	private Long totalRecords;
+	private Long totalPage;
 	private List<TransQueryEntity> recordList;
+	
 	/**
 	 * @return the totalRecords
 	 */
-	public String getTotalRecords() {
+	public Long getTotalRecords() {
 		return totalRecords;
 	}
 	/**
 	 * @param totalRecords the totalRecords to set
 	 */
-	public void setTotalRecords(String totalRecords) {
+	public void setTotalRecords(Long totalRecords) {
 		this.totalRecords = totalRecords;
 	}
 	/**
 	 * @return the totalPage
 	 */
-	public String getTotalPage() {
+	public Long getTotalPage() {
 		return totalPage;
 	}
 	/**
 	 * @param totalPage the totalPage to set
 	 */
-	public void setTotalPage(String totalPage) {
+	public void setTotalPage(Long totalPage) {
 		this.totalPage = totalPage;
 	}
 	/**
@@ -60,7 +61,17 @@ public class TransQueryResponse {
 	public void setRecordList(List<TransQueryEntity> recordList) {
 		this.recordList = recordList;
 	}
-	
-	
-	
+
+    /**
+     * <默认构造函数>
+     */
+    public TransQueryResponse() {
+
+    }
+    /**
+     * <默认构造函数>
+     */
+    public TransQueryResponse(String code, String msg) {
+        super(code, msg);
+    }
 }
